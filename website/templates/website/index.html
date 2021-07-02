@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="{% static 'website/css/index.css' %}">
+    <script src="{% static 'website/js/jquery.js' %}"></script>
+    <script src="{% static 'website/js/index.js' %}"></script>
+    <link rel="shortcut icon" href="{% static 'website/img/logo.png' %}" type="image/x-icon">
+    <title>Pastelería Gorey</title>
+</head>
+<body>
+    <header>
+        <section class="banner">
+            <img class="wave" src="{% static 'website/img/wave.png' %}" alt="Effect">
+            <img class="logo" src="{% static 'website/img/logo.png' %}" alt="logo">
+            <img class="bg" src="{% static 'website/img/banner.jpg' %}" alt="Banner">
+            <h1>Pastelería Gorey</h1>
+            <h2>Un sabor especial para tus momentos especiales</h2>
+        </section>
+        <nav>
+            <ul>
+                <a href="/"><li>Tienda</li></a>
+                <a href="/contact"><li>Contacto</li></a>
+                <a href="/admin"><li>Administración</li></a>
+                {% if request.user.is_superuser %}
+                <a href="/tickets"><li>Pedidos</li></a>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <h2>Nuestros productos</h2>
+        {% for product in products %}
+        <div class="card">
+            <img src="{{product.image}}" alt="{{product.name}}">
+            <h4>{{product.name}}</h4>
+            <span class="cost">$ {{product.price | floatformat:2}}</span>
+            <p>
+                Tipo de producto <span class="type">{{product.typeOfProduct.name}}</span>
+            </p>
+            <p>
+                <b>Descripción:</b>
+                {{product.description}}
+            </p>
+            <div class="buyCart">
+                <button id="product{{product.id_product}}Remove" onclick="removeFromCart('{{product.id_product}}')" style="display: none;"><i class="fas fa-minus"></i></button>
+                <span class="cart"><i class="fas fa-shopping-cart"></i></span>
+                <button id="product{{product.id_product}}Add" onclick="addToCart('{{product.id_product}}', '{{product.name}}', '{{product.price}}')"><i class="fas fa-plus"></i></button>
+            </div>
+        </div>
+        {% endfor %}
+    </main>
+    
+    <aside>
+        <div class="shopCart">
+            <h3>Tu compra <i class="fas fa-shopping-cart"></i></h3>
+            <ul id="list-items">
+                
+            </ul>
+            <p>
+                Total: $<span id="total" class="total">0</span>
+            </p>
+            {% csrf_token %}
+            <button onclick="$('#clientSearch').fadeIn()">Comprar</button>
+        </div>
+    </aside>
+
+    <section id="clientSearch">
+        <div class="form">
+            <h3>Registrar pedido</h3>
+            <form id="clientForm">
+                <label for="name">Nombre completo</label>
+                <input id="name" type="text" name="name" required>
+                <label for="email">Correo electrónico</label>
+                <input id="email" type="email" name="email" required>
+                <button type="reset" onclick="$('#clientSearch').fadeOut()">Cancelar</button>
+                <button type="submit">Hacer pedido</button>
+            </form>
+        </div>
+    </section>
+</body>
+</html>

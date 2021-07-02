@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    {% load static %}
+    {% load mathfilters %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="{% static 'website/css/tickets.css' %}">
+    <link rel="stylesheet" href="{% static 'website/css/resume.css' %}">
+    <script src="{% static 'website/js/jquery.js' %}"></script>
+    <link rel="shortcut icon" href="{% static 'website/img/logo.png' %}" type="image/x-icon">
+    <script src="{% static 'website/js/tickets.js' %}"></script>
+    <title>Gorey | Pedidos realizados</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <a href="/"><li>Tienda</li></a>
+                <a href="/contact"><li>Contacto</li></a>
+                <a href="/admin"><li>Administración</li></a>
+                {% if request.user.is_superuser %}
+                <a href="/tickets"><li>Pedidos</li></a>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h1>Pedidos realizados</h1>
+        <section class="items">
+            <div class="item title">
+                <span class="num">#</span>
+                <span class="client">Cliente</span>
+                <span class="date">Fecha</span>
+                <span class="isPaid">Pagado</span>
+                <span class="isDelivered">Entrega</span>
+                <span class="total">Total</span>
+                <span class="details">Ver detalles</span>
+            </div>
+            {% for i in buys %}
+                <div id="item{{i.id_buy}}" class="item">
+                    <span class="num">{{i.id_buy}}</span>
+                    <span class="client">{{ i.id_client.name }}</span>
+                    <span class="date">{{ i.date |date:"h:m - d/m/Y" }}</span>
+                    {% if i.isPaid %}
+                    <span class="isPaid">Pagado</span>
+                    {% else %}
+                    <span class="isPaid">Sin paga</span>
+                    {% endif %}
+                    {% if i.isDelivered %}
+                    <span class="isDelivered">Entregado</span>
+                    {% else %}
+                    <span class="isDelivered">Sin entregar</span>
+                    {% endif %}
+                    <span class="total">$ {{ i.total|floatformat:2 }}</span>
+                    <span class="details">
+                        <button onclick="getBuy('{{i.id_buy}}', '{{i.total|floatformat:2}}')">Ver pedido</button>
+                    </span>
+                </div>
+            {% endfor %}
+        </section>
+
+        <section class="modal">
+            <h1>Resumen de pedido</h1>
+            <section id="buyItems" class="items">
+                
+            </section>
+            <section class="count">
+                <span class="total">Total $ <span id="total"></span></span>
+            </section>
+            <div class="controls">
+                <a id="deliveredURL" href=""><button>Marcar como entregado</button></a>
+                <button onclick="$('.modal').fadeOut(); $('div').removeClass('actual');">Cerrar</button>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

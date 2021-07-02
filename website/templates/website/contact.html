@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    {% load static %}
+    {% load mathfilters %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="{% static 'website/css/contact.css' %}">
+    <script src="{% static 'website/js/jquery.js' %}"></script>
+    <link rel="shortcut icon" href="{% static 'website/img/logo.png' %}" type="image/x-icon">
+    <title>Gorey | Contacto</title>
+</head>
+<body>
+    <header>
+        <section class="banner">
+            <img class="wave" src="{% static 'website/img/wave.png' %}" alt="Effect">
+            <img class="logo" src="{% static 'website/img/logo.png' %}" alt="logo">
+            <img class="bg" src="{% static 'website/img/banner.jpg' %}" alt="Banner">
+            <h1>Pastelería Gorey</h1>
+            <h2>Un sabor especial para tus momentos especiales</h2>
+        </section>
+        <nav>
+            <ul>
+                <a href="/"><li>Tienda</li></a>
+                <a href="/contact"><li>Contacto</li></a>
+                <a href="/admin"><li>Administración</li></a>
+                {% if request.user.is_superuser %}
+                <a href="/tickets"><li>Pedidos</li></a>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h1>Sobre nosotros</h1>
+        <section class="items">
+            <p>
+                Somos una empresa familiar dedicada a la elaboración de pasteles y repostería. Siempre brindando calidad, servicio y atención.
+            </p>
+            <p>
+                Nuestras estrategias se mantienen alineadas para brindar todos los días más y mejores productos que lleven con orgullo el sello de nuestra marca.
+            </p>
+        </section>
+        <h1>¡Contáctanos!</h1>
+        <section class="items">
+            <h2 class="title">SUCURSAL MIRAVALLE</h2>
+            <p>
+                Av. Teatro de las Américas #1084<br>
+                Guadalajara, Jalisco<br>
+            </p>
+            <p>
+                <b>Contáctanos</b><br>
+                Teléfono: 33 3335 8438<br>
+                Correo: ventas@pasteleriagorey.com<br>
+            </p>
+            <div class="cuadro">
+                <form action="/contact" method="POST">
+                    <div class="formulario">
+                        {% csrf_token %}
+                        <span class="instruccion">También puedes rellenar el siguiente formulario:</span><br>
+                        <input type="text" id="nombre" name="nombre" value="" placeholder="Nombre(s)">
+                        <input type="email" id="email" name="email" value="" placeholder="Correo electrónico">
+                        <textarea id="comentario" name="comentario" rows="8" cols="40" placeholder="Preguntas o comentarios"></textarea>
+                    </div>
+                    <div class="control">
+                        <button class="btn" type="submit" name="contacto">Enviar</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>       
+</body>
+</html>

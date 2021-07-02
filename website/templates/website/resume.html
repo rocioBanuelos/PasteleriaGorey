@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    {% load static %}
+    {% load mathfilters %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="{% static 'website/css/resume.css' %}">
+    <script src="{% static 'website/js/jquery.js' %}"></script>
+    <link rel="shortcut icon" href="{% static 'website/img/logo.png' %}" type="image/x-icon">
+    <title>Gorey | Resumen de pedido</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <a href="/"><li>Tienda</li></a>
+                <a href="/contact"><li>Contacto</li></a>
+                <a href="/admin"><li>Administración</li></a>
+                {% if request.user.is_superuser %}
+                <a href="/tickets"><li>Pedidos</li></a>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h1>Resumen de pedido</h1>
+        <section class="items">
+            <div class="item title">
+                <span class="name">Producto</span>
+                <span class="price">Precio</span>
+                <span class="quantity">Cantidad</span>
+                <span class="subtotal">Subtotal</span>
+            </div>
+            {% for i in buyItems %}
+                <div class="item">
+                    <span class="name">{{ i.id_product.name }}</span>
+                    <span class="price">$ {{ i.id_product.price }}</span>
+                    <span class="quantity">{{ i.quantity }}</span>
+                    <span class="subtotal">{{ i.id_product.price|mul:i.quantity }}</span>
+                </div>
+            {% endfor %}
+        </section>
+        <section class="count">
+            <span class="total">Total a pagar $ {{buy.total}}</span>
+        </section>
+        <section class="clientData">
+            <h1>Pago</h1>
+            <div class="info">
+                Pago a nombre de {{client.name}}
+            </div>
+            <form id="pay" action="/payment/{{buy.id_buy}}" method="POST">
+                {% csrf_token %}
+                <label for="card">Número de tarjeta </label>
+                <input id="card" class="card" name="card" type="text" placeholder="Número de tarjeta" required>
+                <label for="code">CVV</label>
+                <input id="code" class="code" name="code" type="number" placeholder="CVV" required>
+                <label for="month">Vigencia</label>
+                <input id="month" class="month" name="month" type="number" placeholder="MM" required> / 
+                <input id="year" class="year" name="year" type="number" placeholder="YY" required>
+                <button type="submit"><i class="fas fa-credit-card"></i> Pagar</button>
+            </form>
+            
+            Se le enviará una copia de su pedido a su correo {{client.email}}
+
+        </section>     
+    </main>
+</body>
+<script src="{% static 'website/js/resume.js' %}"></script>
+</html>

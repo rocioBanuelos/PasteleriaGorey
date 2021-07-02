@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    {% load static %}
+    {% load mathfilters %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="{% static 'website/css/index.css' %}">
+    <script src="{% static 'website/js/jquery.js' %}"></script>
+    <link rel="shortcut icon" href="{% static 'website/img/logo.png' %}" type="image/x-icon">
+    <title>Gorey | Gracias</title>
+</head>
+<body>
+    <header>
+        <section class="banner">
+            <img class="logo" src="{% static 'website/img/logo.png' %}" alt="logo">
+            <img class="bg" src="{% static 'website/img/banner.jpg' %}" alt="Banner">
+            <h1>Gracias por su compra</h1>
+            <h4>
+                En breve le llegará un correo con la confirmación de su compra, agradecemos su preferencia.
+            </h4>
+        </section>
+        <nav>
+            <ul>
+                <a href="/"><li>Tienda</li></a>
+                <a href="/contact"><li>Contacto</li></a>
+                <a href="/admin"><li>Administración</li></a>
+                {% if request.user.is_superuser %}
+                <a href="/tickets"><li>Pedidos</li></a>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+</body>
+</html>

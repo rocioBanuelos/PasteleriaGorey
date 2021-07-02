@@ -1,0 +1,11 @@
+INSERT INTO `product` (`id_product`, `name`, `image`, `price`, `description`, `id_cake_id`, `typeOfProduct_id`) VALUES
+(2, 'Pastel Moka', 'https://images-na.ssl-images-amazon.com/images/I/51g7xrDtkeL.jpg', 300, 'Pastel grande sabor moka, relleno de nuez y adornos en chocolate liquido.', 1, 1),
+(3, 'Gelatina', 'https://d1uz88p17r663j.cloudfront.net/resized/701a9179352cae88aff3bc765f9c8257_GELATINA_MOSAICO_TRICOLOR_-_BASE_BLANCA_(1)_1200_600.jpg', 15, 'Gelatinas sabores varios, porciones individuales', NULL, 6),
+(4, 'Pay de queso', 'https://i.ytimg.com/vi/SFpHRpRU5UI/maxresdefault.jpg', 20, 'Mini Pay de Queso, porción individual', NULL, 5),
+(5, 'Pastel de Zanahoria', 'https://i.pinimg.com/originals/90/a5/c0/90a5c09593627933b1b84f91e86661f7.jpg', 350, 'Pastel de zanahoria grande, chantilli de vainilla y nuez', 2, 1),
+(6, 'Rebanada pastel de zanahoria', 'https://cdn2.cocinadelirante.com/sites/default/files/styles/gallerie/public/images/2019/10/pastel-de-zanahoria-con-avena-sencillo.jpg', 50, 'Rebanada de nuestro pastel de zanahoria grande clásico ', 2, 2),
+(7, 'Pastel de Chocolate', 'https://dam.cocinafacil.com.mx/wp-content/uploads/2021/04/pastel-de-cuatro-chocolates.jpg', 250, 'Pastel chico sabor chocolate, relleno de fresa y adornos con obleas de chocolate.', 3, 1),
+(8, 'Pastel de Vainilla', 'https://i2.wp.com/www.pastelesdlulu.com/wp-content/uploads/2015/05/zarylim1.jpg?w=310&ssl=1', 250, 'Pastel chico sabor vainilla, relleno de zarzamora y decorado con zarzamoras.', 4, 1),
+(9, 'Pastel de Vainilla', 'https://aranzazu.com/wp-content/uploads/2020/05/Pastel-3-leches-de-Vainilla-1.png', 300, 'Pastel grande de pan vainilla, con relleno de chocolate y decorado con una oblea de chocolate.', 5, 1),
+(10, 'Chocoflan', 'https://imgsnotigram.s3.amazonaws.com/uploads/2021/02/maxresdefault-1-1-1024x576.jpg', 200, 'Combinación de pastel de chocolate con flan.', NULL, 3),
+(11, 'Velas de números', 'https://m.media-amazon.com/images/I/71Fc4xrA71L._AC_SS450_.jpg', 20, 'Velas de números y de signo de interrogación', NULL, 9);
